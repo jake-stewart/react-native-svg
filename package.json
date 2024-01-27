@@ -1,5 +1,5 @@
 {
-  "version": "14.1.1",
+  "version": "14.1.2",
   "name": "naa-rn-svg",
   "description": "SVG library for react-native with AA toggle",
   "homepage": "https://github.com/jake-stewart/react-native-svg",

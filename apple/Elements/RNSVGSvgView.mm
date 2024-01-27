@@ -292,6 +292,7 @@ using namespace facebook::react;
   }
   _boundingBox = rect;
   CGContextRef context = UIGraphicsGetCurrentContext();
+  CGContextSetShouldAntialias(context, false);
 
   [self drawToContext:context withRect:[self bounds]];
 }
