@@ -22,6 +22,7 @@ type HitSlop = Readonly<{
 }>;
 
 interface NativeProps extends ViewProps {
+  antiAlias?: boolean;
   bbWidth?: string;
   bbHeight?: string;
   minX?: Float;
