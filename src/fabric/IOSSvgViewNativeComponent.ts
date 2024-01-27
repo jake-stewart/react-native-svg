@@ -11,7 +11,7 @@ interface NativeProps extends ViewProps {
   vbWidth?: Float;
   vbHeight?: Float;
   align?: string;
-  antiAlias?: boolean;
+  pixelated?: boolean;
   meetOrSlice?: Int32;
   tintColor?: ColorValue;
   color?: ColorValue;

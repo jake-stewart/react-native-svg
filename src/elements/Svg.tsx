@@ -37,7 +37,7 @@ export interface SvgProps extends GProps, ViewProps {
   width?: NumberProp;
   height?: NumberProp;
   viewBox?: string;
-  antiAlias?: boolean;
+  pixelated?: boolean;
   preserveAspectRatio?: string;
   color?: ColorValue;
   title?: string;

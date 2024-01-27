@@ -66,7 +66,7 @@ using namespace facebook::react;
 {
   const auto &newProps = static_cast<const RNSVGSvgViewProps &>(*props);
 
-  self.antiAlias = newProps.antiAlias;
+  self.pixelated = newProps.pixelated;
   self.minX = newProps.minX;
   self.minY = newProps.minY;
   self.vbWidth = newProps.vbWidth;
@@ -87,7 +87,7 @@ using namespace facebook::react;
 - (void)prepareForRecycle
 {
   [super prepareForRecycle];
-  _antiAlias = nil;
+  _pixelated = NO;
   _minX = 0;
   _minY = 0;
   _vbWidth = 0;
@@ -166,15 +166,15 @@ using namespace facebook::react;
   [self clearChildCache];
 }
 
-- (void)setAntiAlias:(bool)antiAlias
+- (void)setPixelated:(bool)pixelated
 {
-  if (antiAlias == _antiAlias) {
+  if (pixelated == _pixelated) {
     return;
   }
 
   [self invalidate];
   [self clearChildCache];
-  _antiAlias = antiAlias;
+  _pixelated = pixelated;
 }
 
 - (void)setMinX:(CGFloat)minX
@@ -305,7 +305,7 @@ using namespace facebook::react;
   }
   _boundingBox = rect;
   CGContextRef context = UIGraphicsGetCurrentContext();
-  CGContextSetShouldAntialias(context, self.antiAlias);
+  CGContextSetShouldAntialias(context, !pixelated);
 
   [self drawToContext:context withRect:[self bounds]];
 }
