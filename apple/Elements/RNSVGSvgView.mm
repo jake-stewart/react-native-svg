@@ -166,7 +166,7 @@ using namespace facebook::react;
   [self clearChildCache];
 }
 
-- (void)setPixelated:(bool)pixelated
+- (void)setPixelated:(BOOL)pixelated
 {
   if (pixelated == _pixelated) {
     return;
@@ -267,6 +267,7 @@ using namespace facebook::react;
 
 - (void)drawToContext:(CGContextRef)context withRect:(CGRect)rect
 {
+  CGContextSetShouldAntialias(context, !_pixelated);
   rendered = true;
   _clipPaths = nil;
   _templates = nil;
@@ -305,7 +306,6 @@ using namespace facebook::react;
   }
   _boundingBox = rect;
   CGContextRef context = UIGraphicsGetCurrentContext();
-  CGContextSetShouldAntialias(context, !_pixelated);
 
   [self drawToContext:context withRect:[self bounds]];
 }
