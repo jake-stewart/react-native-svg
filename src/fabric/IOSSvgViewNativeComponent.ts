@@ -4,6 +4,7 @@ import type { Float, Int32 } from 'react-native/Libraries/Types/CodegenTypes';
 import type { ViewProps } from './utils';
 
 interface NativeProps extends ViewProps {
+  pixelated: boolean;
   bbWidth?: string;
   bbHeight?: string;
   minX?: Float;
@@ -11,7 +12,6 @@ interface NativeProps extends ViewProps {
   vbWidth?: Float;
   vbHeight?: Float;
   align?: string;
-  pixelated?: boolean;
   meetOrSlice?: Int32;
   tintColor?: ColorValue;
   color?: ColorValue;

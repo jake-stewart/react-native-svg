@@ -203,6 +203,7 @@ export default class Svg extends Shape<SvgProps> {
       <RNSVGSvg
         {...props}
         ref={(ref) => this.refMethod(ref as (Svg & NativeMethods) | null)}
+        pixelated={Boolean(props.pixelated)}
         {...extractViewBox({ viewBox, preserveAspectRatio })}>
         <G
           {...{

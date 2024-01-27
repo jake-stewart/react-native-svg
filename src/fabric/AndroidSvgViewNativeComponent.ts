@@ -22,7 +22,7 @@ type HitSlop = Readonly<{
 }>;
 
 interface NativeProps extends ViewProps {
-  pixelated?: boolean;
+  pixelated: boolean;
   bbWidth?: string;
   bbHeight?: string;
   minX?: Float;
