@@ -267,7 +267,11 @@ using namespace facebook::react;
 
 - (void)drawToContext:(CGContextRef)context withRect:(CGRect)rect
 {
-  CGContextSetShouldAntialias(context, !_pixelated);
+  RCTLogWarn(@"setting should alias");
+  if (_pixelated) {
+    CGContextSetShouldAntialias(context, !_pixelated);
+    RCTLogWarn(@"pixelated!");
+  }
   rendered = true;
   _clipPaths = nil;
   _templates = nil;
