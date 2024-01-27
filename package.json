@@ -1,7 +1,8 @@
 {
-  "version": "14.1.0",
+  "version": "14.1.1",
   "name": "naa-rn-svg",
   "description": "SVG library for react-native with AA toggle",
+  "homepage": "https://github.com/jake-stewart/react-native-svg",
   "license": "MIT",
   "main": "lib/commonjs/index.js",
   "module": "lib/module/index.js",
