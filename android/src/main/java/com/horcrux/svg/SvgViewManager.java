@@ -108,6 +108,12 @@ class SvgViewManager extends ReactViewManager
     node.setTintColor(color);
   }
 
+  @ReactProp(name = "pixelated")
+  @Override
+  public void setPixelated(SvgView node, boolean pixelated) {
+    node.setPixelated(pixelated);
+  }
+
   @ReactProp(name = "minX")
   @Override
   public void setMinX(SvgView node, float minX) {

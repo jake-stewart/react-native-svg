@@ -165,6 +165,7 @@ public class SvgView extends ReactViewGroup implements ReactCompoundView, ReactC
   private Canvas mCanvas;
   private final float mScale;
 
+  private bool mPixelated;
   private float mMinX;
   private float mMinY;
   private float mVbWidth;
@@ -198,6 +199,12 @@ public class SvgView extends ReactViewGroup implements ReactCompoundView, ReactC
 
   public void setTintColor(Integer tintColor) {
     mTintColor = tintColor != null ? tintColor : 0;
+    invalidate();
+    clearChildCache();
+  }
+
+  public void setPixelated(bool pixelated) {
+    mPixelated = pixelated;
     invalidate();
     clearChildCache();
   }
@@ -321,7 +328,10 @@ public class SvgView extends ReactViewGroup implements ReactCompoundView, ReactC
 
     final Paint paint = new Paint();
 
-    paint.setFlags(Paint.ANTI_ALIAS_FLAG | Paint.DEV_KERN_TEXT_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
+    paint.setFlags(
+        (mPixelated ? 0 : Paint.ANTI_ALIAS_FLAG)
+            | Paint.DEV_KERN_TEXT_FLAG
+            | Paint.SUBPIXEL_TEXT_FLAG);
 
     paint.setTypeface(Typeface.DEFAULT);
 

@@ -66,9 +66,6 @@ using namespace facebook::react;
 {
   const auto &newProps = static_cast<const RNSVGSvgViewProps &>(*props);
 
-  RCTLogWarn(@"setting props");
-  if (newProps.pixelated)
-    RCTLogWarn(@"got pixelated");
   self.pixelated = newProps.pixelated;
   self.minX = newProps.minX;
   self.minY = newProps.minY;
@@ -171,8 +168,6 @@ using namespace facebook::react;
 
 - (void)setPixelated:(BOOL)pixelated
 {
-  if (pixelated)
-    RCTLogWarn(@"got pixelated2");
   if (pixelated == _pixelated) {
     return;
   }
@@ -272,11 +267,7 @@ using namespace facebook::react;
 
 - (void)drawToContext:(CGContextRef)context withRect:(CGRect)rect
 {
-  RCTLogWarn(@"setting should alias");
-  if (self.pixelated) {
-    CGContextSetShouldAntialias(context, !self.pixelated);
-    RCTLogWarn(@"pixelated!");
-  }
+  CGContextSetShouldAntialias(context, !self.pixelated);
   rendered = true;
   _clipPaths = nil;
   _templates = nil;
