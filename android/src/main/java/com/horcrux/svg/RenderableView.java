@@ -465,14 +465,14 @@ public abstract class RenderableView extends VirtualView implements ReactHitSlop
         mFillPath = new Path();
         paint.getFillPath(path, mFillPath);
       }
-      canvas.drawPath(path, paint, pixelated);
+      canvas.drawPath(path, paint);
     }
     if (setupStrokePaint(paint, opacity * strokeOpacity, pixelated)) {
       if (computePaths) {
         mStrokePath = new Path();
         paint.getFillPath(path, mStrokePath);
       }
-      canvas.drawPath(path, paint, pixelated);
+      canvas.drawPath(path, paint);
     }
     renderMarkers(canvas, paint, opacity, pixelated);
   }
@@ -520,7 +520,10 @@ public abstract class RenderableView extends VirtualView implements ReactHitSlop
   boolean setupFillPaint(Paint paint, float opacity, boolean pixelated) {
     if (fill != null && fill.size() > 0) {
       paint.reset();
-      paint.setFlags((pixelated ? 0 : Paint.ANTI_ALIAS_FLAG) | Paint.DEV_KERN_TEXT_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
+      paint.setFlags(
+          (pixelated ? 0 : Paint.ANTI_ALIAS_FLAG)
+              | Paint.DEV_KERN_TEXT_FLAG
+              | Paint.SUBPIXEL_TEXT_FLAG);
       paint.setStyle(Paint.Style.FILL);
       setupPaint(paint, opacity, fill, pixelated);
       return true;
@@ -539,7 +542,10 @@ public abstract class RenderableView extends VirtualView implements ReactHitSlop
       return false;
     }
 
-    paint.setFlags((pixelated ? 0 : Paint.ANTI_ALIAS_FLAG) | Paint.DEV_KERN_TEXT_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
+    paint.setFlags(
+        (pixelated ? 0 : Paint.ANTI_ALIAS_FLAG)
+            | Paint.DEV_KERN_TEXT_FLAG
+            | Paint.SUBPIXEL_TEXT_FLAG);
     paint.setStyle(Paint.Style.STROKE);
     paint.setStrokeCap(strokeLinecap);
     paint.setStrokeJoin(strokeLinejoin);
