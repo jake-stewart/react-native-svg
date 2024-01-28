@@ -85,10 +85,10 @@ class TSpanView extends TextView {
   void draw(Canvas canvas, Paint paint, float opacity, boolean pixelated) {
     if (mContent != null) {
       if (mInlineSize != null && mInlineSize.value != 0) {
-        if (setupFillPaint(paint, opacity * fillOpacity)) {
+        if (setupFillPaint(paint, opacity * fillOpacity, pixelated)) {
           drawWrappedText(canvas, paint);
         }
-        if (setupStrokePaint(paint, opacity * strokeOpacity)) {
+        if (setupStrokePaint(paint, opacity * strokeOpacity, pixelated)) {
           drawWrappedText(canvas, paint);
         }
       } else {
@@ -106,11 +106,11 @@ class TSpanView extends TextView {
             canvas.restore();
           }
         }
-        drawPath(canvas, paint, opacity);
+        drawPath(canvas, paint, opacity, pixelated);
       }
     } else {
       clip(canvas, paint);
-      drawGroup(canvas, paint, opacity);
+      drawGroup(canvas, paint, opacity, pixelated);
     }
   }
 

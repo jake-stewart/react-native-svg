@@ -465,19 +465,19 @@ public abstract class RenderableView extends VirtualView implements ReactHitSlop
         mFillPath = new Path();
         paint.getFillPath(path, mFillPath);
       }
-      canvas.drawPath(path, paint);
+      canvas.drawPath(path, paint, pixelated);
     }
-    if (setupStrokePaint(paint, opacity * strokeOpacity)) {
+    if (setupStrokePaint(paint, opacity * strokeOpacity, pixelated)) {
       if (computePaths) {
         mStrokePath = new Path();
         paint.getFillPath(path, mStrokePath);
       }
-      canvas.drawPath(path, paint);
+      canvas.drawPath(path, paint, pixelated);
     }
-    renderMarkers(canvas, paint, opacity);
+    renderMarkers(canvas, paint, opacity, pixelated);
   }
 
-  void renderMarkers(Canvas canvas, Paint paint, float opacity) {
+  void renderMarkers(Canvas canvas, Paint paint, float opacity, boolean pixelated) {
     MarkerView markerStart = (MarkerView) getSvgView().getDefinedMarker(mMarkerStart);
     MarkerView markerMid = (MarkerView) getSvgView().getDefinedMarker(mMarkerMid);
     MarkerView markerEnd = (MarkerView) getSvgView().getDefinedMarker(mMarkerEnd);
@@ -505,7 +505,7 @@ public abstract class RenderableView extends VirtualView implements ReactHitSlop
         if (marker == null) {
           continue;
         }
-        marker.renderMarker(canvas, paint, opacity, position, width);
+        marker.renderMarker(canvas, paint, opacity, position, width, pixelated);
         Matrix transform = marker.markerTransform;
         mMarkerPath.addPath(marker.getPath(canvas, paint), transform);
       }

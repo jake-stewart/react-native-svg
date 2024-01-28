@@ -155,7 +155,7 @@ class MarkerView extends GroupView {
   }
 
   void renderMarker(
-      Canvas canvas, Paint paint, float opacity, RNSVGMarkerPosition position, float strokeWidth) {
+      Canvas canvas, Paint paint, float opacity, RNSVGMarkerPosition position, float strokeWidth, boolean pixelated) {
     int count = saveAndSetupCanvas(canvas, mCTM);
 
     markerTransform.reset();
@@ -193,7 +193,7 @@ class MarkerView extends GroupView {
 
     canvas.concat(markerTransform);
 
-    drawGroup(canvas, paint, opacity);
+    drawGroup(canvas, paint, opacity, pixelated);
 
     restoreCanvas(canvas, count);
   }

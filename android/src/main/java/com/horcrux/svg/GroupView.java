@@ -73,10 +73,11 @@ class GroupView extends RenderableView {
     setupGlyphContext(canvas);
     clip(canvas, paint);
     drawGroup(canvas, paint, opacity, pixelated);
-    renderMarkers(canvas, paint, opacity);
+    renderMarkers(canvas, paint, opacity, pixelated);
   }
 
-  void drawGroup(final Canvas canvas, final Paint paint, final float opacity, final boolean pixelated) {
+  void drawGroup(
+      final Canvas canvas, final Paint paint, final float opacity, final boolean pixelated) {
     pushGlyphContext();
     final SvgView svg = getSvgView();
     final GroupView self = this;
