@@ -364,7 +364,7 @@ public abstract class RenderableView extends VirtualView implements ReactHitSlop
     return v <= 0 ? 0 : (v >= 1 ? 1 : v);
   }
 
-  void render(Canvas canvas, Paint paint, float opacity) {
+  void render(Canvas canvas, Paint paint, float opacity, boolean pixelated) {
     MaskView mask = null;
     if (mMask != null) {
       SvgView root = getSvgView();
@@ -390,8 +390,8 @@ public abstract class RenderableView extends VirtualView implements ReactHitSlop
       float maskHeight = (float) relativeOnHeight(mask.mH);
       maskCanvas.clipRect(maskX, maskY, maskWidth + maskX, maskHeight + maskY);
 
-      Paint maskPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-      mask.draw(maskCanvas, maskPaint, 1);
+      Paint maskPaint = new Paint(pixelated ? 0 : Paint.ANTI_ALIAS_FLAG);
+      mask.draw(maskCanvas, maskPaint, 1, pixelated);
 
       // Apply luminanceToAlpha filter primitive
       // https://www.w3.org/TR/SVG11/filters.html#feColorMatrixElement
@@ -416,7 +416,7 @@ public abstract class RenderableView extends VirtualView implements ReactHitSlop
       maskBitmap.setPixels(pixels, 0, width, 0, 0, width, height);
 
       // Render content of current SVG Renderable to image
-      draw(originalCanvas, paint, opacity);
+      draw(originalCanvas, paint, opacity, pixelated);
 
       // Blend current element and mask
       maskPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
@@ -426,12 +426,12 @@ public abstract class RenderableView extends VirtualView implements ReactHitSlop
       // Render composited result into current render context
       canvas.drawBitmap(result, 0, 0, paint);
     } else {
-      draw(canvas, paint, opacity);
+      draw(canvas, paint, opacity, pixelated);
     }
   }
 
   @Override
-  void draw(Canvas canvas, Paint paint, float opacity) {
+  void draw(Canvas canvas, Paint paint, float opacity, boolean pixelated) {
     opacity *= mOpacity;
 
     boolean computePaths = mPath == null;
@@ -460,7 +460,7 @@ public abstract class RenderableView extends VirtualView implements ReactHitSlop
 
     clip(canvas, paint);
 
-    if (setupFillPaint(paint, opacity * fillOpacity)) {
+    if (setupFillPaint(paint, opacity * fillOpacity, pixelated)) {
       if (computePaths) {
         mFillPath = new Path();
         paint.getFillPath(path, mFillPath);
@@ -517,12 +517,12 @@ public abstract class RenderableView extends VirtualView implements ReactHitSlop
    * Sets up paint according to the props set on a view. Returns {@code true} if the fill should be
    * drawn, {@code false} if not.
    */
-  boolean setupFillPaint(Paint paint, float opacity) {
+  boolean setupFillPaint(Paint paint, float opacity, boolean pixelated) {
     if (fill != null && fill.size() > 0) {
       paint.reset();
-      paint.setFlags(Paint.ANTI_ALIAS_FLAG | Paint.DEV_KERN_TEXT_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
+      paint.setFlags((pixelated ? 0 : Paint.ANTI_ALIAS_FLAG) | Paint.DEV_KERN_TEXT_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
       paint.setStyle(Paint.Style.FILL);
-      setupPaint(paint, opacity, fill);
+      setupPaint(paint, opacity, fill, pixelated);
       return true;
     }
     return false;
@@ -532,20 +532,20 @@ public abstract class RenderableView extends VirtualView implements ReactHitSlop
    * Sets up paint according to the props set on a view. Returns {@code true} if the stroke should
    * be drawn, {@code false} if not.
    */
-  boolean setupStrokePaint(Paint paint, float opacity) {
+  boolean setupStrokePaint(Paint paint, float opacity, boolean pixelated) {
     paint.reset();
     double strokeWidth = relativeOnOther(this.strokeWidth);
     if (strokeWidth == 0 || stroke == null || stroke.size() == 0) {
       return false;
     }
 
-    paint.setFlags(Paint.ANTI_ALIAS_FLAG | Paint.DEV_KERN_TEXT_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
+    paint.setFlags((pixelated ? 0 : Paint.ANTI_ALIAS_FLAG) | Paint.DEV_KERN_TEXT_FLAG | Paint.SUBPIXEL_TEXT_FLAG);
     paint.setStyle(Paint.Style.STROKE);
     paint.setStrokeCap(strokeLinecap);
     paint.setStrokeJoin(strokeLinejoin);
     paint.setStrokeMiter(strokeMiterlimit * mScale);
     paint.setStrokeWidth((float) strokeWidth);
-    setupPaint(paint, opacity, stroke);
+    setupPaint(paint, opacity, stroke, pixelated);
 
     if (strokeDasharray != null) {
       int length = strokeDasharray.length;
@@ -559,7 +559,7 @@ public abstract class RenderableView extends VirtualView implements ReactHitSlop
     return true;
   }
 
-  private void setupPaint(Paint paint, float opacity, ReadableArray colors) {
+  private void setupPaint(Paint paint, float opacity, ReadableArray colors, boolean pixelated) {
     int colorType = colors.getInt(0);
     switch (colorType) {
       case 0:
@@ -586,7 +586,7 @@ public abstract class RenderableView extends VirtualView implements ReactHitSlop
         {
           Brush brush = getSvgView().getDefinedBrush(colors.getString(1));
           if (brush != null) {
-            brush.setupPaint(paint, mBox, mScale, opacity);
+            brush.setupPaint(paint, mBox, mScale, opacity, pixelated);
           }
           break;
         }
@@ -601,14 +601,14 @@ public abstract class RenderableView extends VirtualView implements ReactHitSlop
       case 3:
         {
           if (contextElement != null && contextElement.fill != null) {
-            setupPaint(paint, opacity, contextElement.fill);
+            setupPaint(paint, opacity, contextElement.fill, pixelated);
           }
           break;
         }
       case 4:
         {
           if (contextElement != null && contextElement.stroke != null) {
-            setupPaint(paint, opacity, contextElement.stroke);
+            setupPaint(paint, opacity, contextElement.stroke, pixelated);
           }
           break;
         }

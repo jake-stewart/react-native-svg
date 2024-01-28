@@ -31,14 +31,14 @@ class ForeignObjectView extends GroupView {
   }
 
   @Override
-  void draw(Canvas canvas, Paint paint, float opacity) {
+  void draw(Canvas canvas, Paint paint, float opacity, boolean pixelated) {
     float x = (float) relativeOnWidth(mX);
     float y = (float) relativeOnHeight(mY);
     float w = (float) relativeOnWidth(mW);
     float h = (float) relativeOnHeight(mH);
     canvas.translate(x, y);
     canvas.clipRect(0, 0, w, h);
-    super.draw(canvas, paint, opacity);
+    super.draw(canvas, paint, opacity, pixelated);
   }
 
   @Override
@@ -107,7 +107,7 @@ class ForeignObjectView extends GroupView {
     invalidate();
   }
 
-  void drawGroup(final Canvas canvas, final Paint paint, final float opacity) {
+  void drawGroup(final Canvas canvas, final Paint paint, final float opacity, final boolean pixelated) {
     pushGlyphContext();
     final SvgView svg = getSvgView();
     final GroupView self = this;
@@ -127,7 +127,7 @@ class ForeignObjectView extends GroupView {
         }
 
         int count = node.saveAndSetupCanvas(canvas, mCTM);
-        node.render(canvas, paint, opacity * mOpacity);
+        node.render(canvas, paint, opacity * mOpacity, pixelated);
         RectF r = node.getClientRect();
         if (r != null) {
           groupRect.union(r);

@@ -95,8 +95,8 @@ class TextPathView extends TextView {
   }
 
   @Override
-  void draw(Canvas canvas, Paint paint, float opacity) {
-    drawGroup(canvas, paint, opacity);
+  void draw(Canvas canvas, Paint paint, float opacity, boolean pixelated) {
+    drawGroup(canvas, paint, opacity, pixelated);
   }
 
   Path getTextPath(Canvas canvas, Paint paint) {

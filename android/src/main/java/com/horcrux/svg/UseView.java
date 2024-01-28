@@ -96,7 +96,7 @@ class UseView extends RenderableView {
   }
 
   @Override
-  void draw(Canvas canvas, Paint paint, float opacity) {
+  void draw(Canvas canvas, Paint paint, float opacity, boolean pixelated) {
     VirtualView template = getSvgView().getDefinedTemplate(mHref);
 
     if (template == null) {
@@ -121,9 +121,9 @@ class UseView extends RenderableView {
     if (template instanceof SymbolView) {
       SymbolView symbol = (SymbolView) template;
       symbol.drawSymbol(
-          canvas, paint, opacity, (float) relativeOnWidth(mW), (float) relativeOnHeight(mH));
+          canvas, paint, opacity, (float) relativeOnWidth(mW), (float) relativeOnHeight(mH), pixelated);
     } else {
-      template.draw(canvas, paint, opacity * mOpacity);
+      template.draw(canvas, paint, opacity * mOpacity, pixelated);
     }
 
     this.setClientRect(template.getClientRect());

@@ -60,11 +60,11 @@ class SymbolView extends GroupView {
   }
 
   @Override
-  void draw(Canvas canvas, Paint paint, float opacity) {
+  void draw(Canvas canvas, Paint paint, float opacity, boolean pixelated) {
     saveDefinition();
   }
 
-  void drawSymbol(Canvas canvas, Paint paint, float opacity, float width, float height) {
+  void drawSymbol(Canvas canvas, Paint paint, float opacity, float width, float height, boolean pixelated) {
     if (mAlign != null) {
       RectF vbRect =
           new RectF(
@@ -75,7 +75,7 @@ class SymbolView extends GroupView {
       RectF eRect = new RectF(0, 0, width, height);
       Matrix viewBoxMatrix = ViewBox.getTransform(vbRect, eRect, mAlign, mMeetOrSlice);
       canvas.concat(viewBoxMatrix);
-      super.draw(canvas, paint, opacity);
+      super.draw(canvas, paint, opacity, pixelated);
     }
   }
 }

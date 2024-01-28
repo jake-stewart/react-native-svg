@@ -231,10 +231,10 @@ public abstract class VirtualView extends ReactViewGroup {
     return fontSize;
   }
 
-  abstract void draw(Canvas canvas, Paint paint, float opacity);
+  abstract void draw(Canvas canvas, Paint paint, float opacity, boolean pixelated);
 
-  void render(Canvas canvas, Paint paint, float opacity) {
-    draw(canvas, paint, opacity);
+  void render(Canvas canvas, Paint paint, float opacity, boolean pixelated) {
+    draw(canvas, paint, opacity, pixelated);
   }
 
   /**

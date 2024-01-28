@@ -22,7 +22,7 @@ class DefinitionView extends VirtualView {
   }
 
   @SuppressWarnings("EmptyMethod")
-  void draw(Canvas canvas, Paint paint, float opacity) {}
+  void draw(Canvas canvas, Paint paint, float opacity, boolean pixelated) {}
 
   @Override
   boolean isResponsible() {

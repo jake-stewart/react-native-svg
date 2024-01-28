@@ -347,7 +347,7 @@ public class SvgView extends ReactViewGroup implements ReactCompoundView, ReactC
       if (lNode instanceof VirtualView) {
         VirtualView node = (VirtualView) lNode;
         int count = node.saveAndSetupCanvas(canvas, mViewBoxMatrix);
-        node.render(canvas, paint, 1f);
+        node.render(canvas, paint, 1f, mPixelated);
         node.restoreCanvas(canvas, count);
 
         if (node.isResponsible() && !mResponsible) {

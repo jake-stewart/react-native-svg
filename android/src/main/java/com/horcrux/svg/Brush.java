@@ -109,7 +109,8 @@ class Brush {
         textSize);
   }
 
-  void setupPaint(Paint paint, RectF pathBoundingBox, float scale, float opacity) {
+  void setupPaint(
+      Paint paint, RectF pathBoundingBox, float scale, float opacity, boolean pixelated) {
     RectF rect = getPaintRect(pathBoundingBox);
     float width = rect.width();
     float height = rect.height();
@@ -142,7 +143,7 @@ class Brush {
         canvas.scale(width / scale, height / scale);
       }
 
-      mPattern.draw(canvas, new Paint(), opacity);
+      mPattern.draw(canvas, new Paint(), opacity, pixelated);
 
       Matrix patternMatrix = new Matrix();
       if (mMatrix != null) {

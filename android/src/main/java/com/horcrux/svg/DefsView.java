@@ -22,7 +22,7 @@ class DefsView extends DefinitionView {
   }
 
   @Override
-  void draw(Canvas canvas, Paint paint, float opacity) {}
+  void draw(Canvas canvas, Paint paint, float opacity, boolean pixelated) {}
 
   void saveDefinition() {
     for (int i = 0; i < getChildCount(); i++) {

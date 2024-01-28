@@ -69,14 +69,14 @@ class GroupView extends RenderableView {
     getTextRootGlyphContext().popContext();
   }
 
-  void draw(final Canvas canvas, final Paint paint, final float opacity) {
+  void draw(final Canvas canvas, final Paint paint, final float opacity, final boolean pixelated) {
     setupGlyphContext(canvas);
     clip(canvas, paint);
-    drawGroup(canvas, paint, opacity);
+    drawGroup(canvas, paint, opacity, pixelated);
     renderMarkers(canvas, paint, opacity);
   }
 
-  void drawGroup(final Canvas canvas, final Paint paint, final float opacity) {
+  void drawGroup(final Canvas canvas, final Paint paint, final float opacity, final boolean pixelated) {
     pushGlyphContext();
     final SvgView svg = getSvgView();
     final GroupView self = this;
@@ -97,7 +97,7 @@ class GroupView extends RenderableView {
         }
 
         int count = node.saveAndSetupCanvas(canvas, mCTM);
-        node.render(canvas, paint, opacity * mOpacity);
+        node.render(canvas, paint, opacity * mOpacity, pixelated);
         RectF r = node.getClientRect();
 
         if (r != null) {
@@ -130,8 +130,8 @@ class GroupView extends RenderableView {
     popGlyphContext();
   }
 
-  void drawPath(Canvas canvas, Paint paint, float opacity) {
-    super.draw(canvas, paint, opacity);
+  void drawPath(Canvas canvas, Paint paint, float opacity, boolean pixelated) {
+    super.draw(canvas, paint, opacity, pixelated);
   }
 
   @Override

@@ -23,7 +23,7 @@ class ClipPathView extends GroupView {
   }
 
   @Override
-  void draw(Canvas canvas, Paint paint, float opacity) {
+  void draw(Canvas canvas, Paint paint, float opacity, boolean pixelated) {
     FLog.w(
         ReactConstants.TAG,
         "RNSVG: ClipPath can't be drawn, it should be defined as a child component for `Defs` ");

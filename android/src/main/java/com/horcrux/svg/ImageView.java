@@ -147,7 +147,7 @@ class ImageView extends RenderableView {
   }
 
   @Override
-  void draw(final Canvas canvas, final Paint paint, final float opacity) {
+  void draw(final Canvas canvas, final Paint paint, final float opacity, final boolean pixelated) {
     if (!mLoading.get()) {
       ImagePipeline imagePipeline = Fresco.getImagePipeline();
       ImageSource imageSource = new ImageSource(mContext, uriString);

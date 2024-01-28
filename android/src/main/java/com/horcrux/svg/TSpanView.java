@@ -82,7 +82,7 @@ class TSpanView extends TextView {
   }
 
   @Override
-  void draw(Canvas canvas, Paint paint, float opacity) {
+  void draw(Canvas canvas, Paint paint, float opacity, boolean pixelated) {
     if (mContent != null) {
       if (mInlineSize != null && mInlineSize.value != 0) {
         if (setupFillPaint(paint, opacity * fillOpacity)) {
