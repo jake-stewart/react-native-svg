@@ -165,7 +165,7 @@ public class SvgView extends ReactViewGroup implements ReactCompoundView, ReactC
   private Canvas mCanvas;
   private final float mScale;
 
-  private bool mPixelated;
+  private boolean mPixelated;
   private float mMinX;
   private float mMinY;
   private float mVbWidth;
@@ -203,7 +203,7 @@ public class SvgView extends ReactViewGroup implements ReactCompoundView, ReactC
     clearChildCache();
   }
 
-  public void setPixelated(bool pixelated) {
+  public void setPixelated(boolean pixelated) {
     mPixelated = pixelated;
     invalidate();
     clearChildCache();
