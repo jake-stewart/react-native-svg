@@ -19,6 +19,7 @@ public interface RNSVGSvgViewAndroidManagerInterface<T extends View> {
   void setBbHeight(T view, @Nullable String value);
   void setBbHeight(T view, @Nullable Double value);
   void setMinX(T view, float value);
+  void setPixelated(T view, boolean value);
   void setMinY(T view, float value);
   void setVbWidth(T view, float value);
   void setVbHeight(T view, float value);

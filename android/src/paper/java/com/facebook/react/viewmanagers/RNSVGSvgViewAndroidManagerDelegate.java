@@ -41,6 +41,9 @@ public class RNSVGSvgViewAndroidManagerDelegate<T extends View, U extends BaseVi
           mViewManager.setBbHeight(view, (Double) null);
         }
         break;
+      case "pixelated":
+        mViewManager.setPixelated(view, value == null ? false : (boolean) value);
+        break;
       case "minX":
         mViewManager.setMinX(view, value == null ? Float.NaN : ((Double) value).floatValue());
         break;
